@@ -1,0 +1,16 @@
+<h1>Details of request #<%= @request.id %></h1>
+
+<p>Name: <%= @request.name %>
+
+<p>Email: <%= @request.email %>
+
+<p>Department: <%= @request.department %>
+
+<p>Message: <%= @request.message %>
+
+<p>Request fulfilled?: 
+  <% if @request.done == "true" %>
+    <%= "Yes" %>
+  <% else %>
+    <%= "No" %>
+  <% end %>

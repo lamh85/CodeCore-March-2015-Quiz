@@ -1,0 +1,125 @@
+<h1>All Requests</h1>
+
+<!-- <form action="/search" method="post">
+<input type="text" for="search_term">
+<input type="submit">
+</form> -->
+
+<%#= form_for @search do |f| %>
+  <%#= f.text_field :search_term %>
+  <%#= f.submit  %>
+<%# end %>
+
+<%# form_tag searches_path do %>
+  <!-- <label for="lookup">Lookup</label> -->
+  <%#= text_field_tag :lookup %>
+ <%#= submit_tag "Submit" %>
+<%# end %>
+
+<!-- START TABLE FOR RECRDS -->
+<table cellspacing="0">
+<tr>
+
+<th>
+  Request # 
+</th>
+
+<th>
+  Name
+</th>
+
+<th>
+  Email
+</th>
+
+<th>
+  Department
+</th>
+
+<th>
+  Message
+</th>
+
+<th>
+  Actions
+</th>
+
+</tr>
+<!-- END ROW FOR TABLE HEADERS -->
+
+<% @request.each do |request| %>
+  
+  <tr>
+
+  <td><%= request.id %></td>
+
+  <td><%= request.name %></td>
+
+  <td><%= mail_to request.email, request.email %></td>
+
+  <td><%= request.department %></td>
+
+  <td><%= request.message %></td>
+
+  <!-- START CELL FOR ACTIONS -->
+  <td>
+
+  <%= link_to "Edit", edit_request_path(request) %>
+  <%= button_to "Delete", request_path(request), method: :delete, data: {confirm: "Are you sure?"} %>
+
+  <!-- START BUTTON FOR MARKING AS DONE/NOT DONE -->
+  <%= form_for request do |f| %>
+  
+    <% if request.done == "true" %>
+
+      <%= f.hidden_field(:done, :value => "false") %>
+      <%= f.submit "Mark as 'Not Done'" %>
+
+    <% else %>
+
+      <%= f.hidden_field(:done, :value => "true") %>
+      <%= f.submit "Mark as 'Done'" %>
+
+    <!-- END IF/ELSE STATEMENT -->
+    <!-- END BUTTON FOR MARKING AS DONE/NOT DONE -->
+    <% end %>
+
+  <!-- END CELL FOR ACTIONS -->    
+  </td>
+  <!-- END ROW -->
+  </tr>
+  <!-- END LOOP FOR ONE RECORD -->
+  <% end %>
+
+
+<% end %>
+</table>
+
+<style>
+  * {
+    font-family: Arial, sans-serif;
+  }
+
+  h1 {
+    font-weight: 100;
+    font-size: 2em;
+  }
+
+  form {
+    display: inline-block;
+  }
+
+  td, th{
+    padding: 0.5em;
+    border: 1px solid rgb(240,240,240);
+    margin: 0px;
+  }
+
+  table {
+    border: none;
+  }
+
+  input {
+    padding: 0.5em;
+  }
+</style>
